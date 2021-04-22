@@ -56,16 +56,168 @@ Better buy a vps 😐 and follow [this](https://github.com/gautamajay52/TorrentL
 
 - Clone this repo:
 ```
-git clone https://github.com/gautamajay52/TorrentLeech-Gdrive torrentleech-gdrive
+git clone https://github.com/kaviya-admin/TorrentLeech-Gdrive torrentleech-gdrive
 cd torrentleech-gdrive
 ```
 
-- Install requirements
-For Debian based distros
-```
-sudo snap install docker
-```
-Install Docker by following the [official docker docs](https://docs.docker.com/engine/install/debian/)
+- Install requirements-
+For Ubuntu based distros
+
+cd TorrentLeech-Gdrive
+
+SET UP THE DOCKER REPOSITORY
+sudo apt-get update
+Then,
+
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+Then,
+
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+Then,
+
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+Then,
+
+sudo apt-get update
+Then,
+
+apt-cache policy docker-ce
+Then,
+
+sudo apt-get install -y docker-ce
+Then,
+
+sudo systemctl status docker
+Then,
+
+sudo apt-get update
+Then,
+
+sudo apt-get install docker-ce docker-ce-cli containerd.io
+Then (optional step to test run your docker installation),
+
+sudo docker run hello-world
+Then,
+
+sudo apt-get install python3-pip && pip3 install --upgrade pip
+Then,
+
+pip3 install --no-cache-dir -r requirements.txt
+Then,
+
+cp tobrot/g_config.py tobrot/config.py
+Use the details gotten from below to fill your config.py file.
+
+N.B. I used the default MobaXterm text editor when editing my config.py file. You can choose to use the default nano editor on Linux, e.g by running nano config.py command.
+
+Botfather Bot Token
+
+Telegram App ID and API hash
+
+Auth Channel ID is gotten using What’s my ID
+
+The destination folder is gotten using the folder ID in your Google Drive or Team Drive, where you want your downloads to go into.
+
+RClone Config is gotten by setting up a remote for your Team Drive or Google Drive you want to use as your download destination directory. Check out my other guide on how to create a Rclone config. If you are using a TD as your download destination, also make sure you include the Team Drive ID in the Rclone config.
+
+N.B. Ensure you don’t remove the tripple quotation marks and also ensure you separate each line entry by a \n.
+
+My Index Site
+
+Bot Commands
+ytdl -Reply to a YouTube link
+
+ytdl gdrive -Upload YouTube file to Gdrive
+
+leech -magnent, torrent or direct link
+
+leech archive -as an archive
+
+gleech -leech and upload to Gdrive
+
+gleech archive -as an archive
+
+leech unzip -unzip file
+
+gleech unzip -unzip and upload to Gdrive
+
+leech unrar -unrar file
+
+gleech unrar -unrar and upload to Gdrive
+
+leech untar -untar file
+
+gleech untar -untar and upload to GDrive
+
+tleech -mirror telegram files to GDrive
+
+tleech unzip -unzip and mirror TG files
+
+tleech unrar -unrar and mirror TG files
+
+tleech untar -untar and mirror TG files
+
+getsize -Get size of Cloud storage folder
+
+Deploying the Bot
+sudo dockerd
+Then,
+
+sudo docker build . -t torrentleech-gdrive
+Then,
+
+sudo docker run torrentleech-gdrive
+Troubleshooting Docker Issues
+If Docker fails to start due to “volume store metadata database: timeout”
+Run the below code:
+ps axf | grep docker | grep -v grep | awk '{print "kill -9 " $1}' | sudo sh
+Then,
+
+sudo systemctl start docker
+Then skip running sudo dockerd as given under deploying bot above.
+
+To Install pip3 run the below command:
+sudo apt-get install python3-pip && pip3 install --upgrade pip
+Common Errors and Troubleshooting Solutions
+Error #1:
+
+Docker fails to start due to "volume store metadata database: timeout"
+Solution #1: run the following codes serially:
+
+ps axf | grep docker | grep -v grep | awk '{print "kill -9 " $1}' | sudo sh
+Then,
+
+sudo systemctl start docker
+Thereafter skip running the sudo dockerd cmd. Instead continue your bot deployment with the next cmd.
+
+Error #2:
+
+failed to start daemon: pid file found, ensure docker is not running or delete the /var/run/docker.pid
+Solution #2: You need to delete the docker.pid file in the /var/run directory. Run these codes below to get this done.
+
+cd ~
+Then,
+
+cd /var/run
+Then,
+
+sudo rm -r docker.pid
+Then navigate back to your bot directory and continue your bot deployment process.
+
+To Stop a Docker Container
+Run this code:
+
+sudo docker ps
+Copy the Docker container ID after running the above code and use in the below code (without the quotation marks):
+
+sudo docker stop "container ID copied from step above"
+Then you can restart another Docker container starting from the code below code and continue as explained above:
+
+sudo docker build . -t torrentleech-gdrive
+Then,
+
+sudo docker run torrentleech-gdrive
+How to Create and Deploy a Telegram Torrent Leecher Bot for FREE
 
 ## Setting up config file
 ```
